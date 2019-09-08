@@ -1,0 +1,12 @@
+1. Intstall virtualenv
+2. Created Venv virtualenv venv_name
+3. activate venv - Source venv_name\bin\activate
+4. Intstall Django - pip Intstall Django
+5. Create project - Django-admin startproject proj_name
+6. Create app - python manage.py startapp app_name
+7. Alter  Urls.py files in App and project
+8. Create view as specified.
+9. Add html.
+    9.a create templates folder
+    9.b Alter settings.py file -'DIRS': [os.path.join(BASE_DIR,'templates')],
+    9.c Create html file inside templates

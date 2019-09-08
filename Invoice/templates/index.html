@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+
+{% block Content %}
+
+
+    <div class="container">
+
+      <form class="form-signin" role="form" action="login.php" method="post">
+          <b>  <h2 class="form-signin-heading"><center>{{ name }}</h2><hr class="alert-danger" /></b>
+        <br />
+        <div class="form-group">
+            <span class="label label-primary">User Name:</span>
+        <select class="form-control" class="form-control" id="sel1" name="name" required>
+        <?php
+         
+            header( 'Content-Type: text/html; charset=utf-8' ); 
+        require_once 'db_connect.php';
+        $q="SELECT * FROM admin; ";
+        $res=  mysqli_query($con, $q);
+        echo mysqli_error($con);
+        while ($row = mysqli_fetch_array($res)) {
+            
+        
+        ?>
+                
+        <option value="<?php echo $row['username'];?>"><?php echo $row['username'];?>
+           </option  >
+        
+     <?php
+       echo mysqli_error($con); }
+        ?>
+           
+          </select>
+            <div> <br>
+        <input type="password" class="form-control" placeholder="Password" name="passwd" required>
+       
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div> <!-- /container -->
+
+    {% endblock %}
