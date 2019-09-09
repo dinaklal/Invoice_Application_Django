@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class User:
-    id: int
-    name: str
-    passwd:str
+class Sites(models.Model):
+    id = models.IntegerField
+    name = models.CharField(max_length=100)
+    Unit_price = models.CharField(max_length=100)

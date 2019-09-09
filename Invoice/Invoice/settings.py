@@ -25,12 +25,13 @@ SECRET_KEY = 'j8o(7p(ji86*_!+rama)4fde!w^h7dgmsuh5klfzpjtci0d0m#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'login.apps.LoginConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,8 +76,13 @@ WSGI_APPLICATION = 'Invoice.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mughal',
+        'USER':'mughal',
+        'PASSWORD':'949510',
+        'HOST':'localhost',
+        'PORT':'',
+        
     }
 }
 
