@@ -12,13 +12,22 @@
 </head>
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+       <!-- Bootstrap core CSS -->
+  
+    <script src="{% static 'm/dist/sweetalert.min.js' %}"></script> <link rel="stylesheet" type="text/css" href="{% static 'm/dist/sweetalert.css'%}">
 
     <!-- Custom styles for this template -->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
     <link href="{% static "/css/signin.css" %}" rel="stylesheet">
-        <body background="{% static 'images/bg.jpg'  %}">
+        <body background="{% static 'images/bg.jpg'  %}" >
 
 
         {% block Content %}
         {% endblock %}
 </body>
+    
+    <script src="{% static 'js/jquery.min.js'  %}"></script> 
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/docs.min.js' %}"></script>
 </html>

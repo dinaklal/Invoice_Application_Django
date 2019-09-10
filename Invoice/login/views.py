@@ -1,8 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
-
-from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth.models import User,auth
 # Create your views here.
 def login(request):
-    users = User.objects.all()
-    return render(request,'index.html',{'Users':users,'name':'Mughal Invoice'})
+    if request.method == 'POST':
+        username = request.POST['username']
+        passwd = request.POST['passwd']
+        user= auth.authenticate(username=username,password=passwd)
+        if user is not None:
+            auth.login(request,user)
+            return redirect('/home')
+        else:
+            messages.info(request,'passwd')
+            return redirect('/')
+    else:
+        users = User.objects.all()
+        return render(request,'index.html',{'Users':users,'name':'Mughal Invoice'})
