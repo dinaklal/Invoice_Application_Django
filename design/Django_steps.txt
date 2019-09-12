@@ -65,5 +65,8 @@
 15. Create model , in models.py - Inherit models.Model
     DB Create --  python manage.py makemigrations
     Then ---python manage.py sqlmigrate login 0001_initial
-    Migrate ---- python manage.py migrate
-
+    Migrate to create tables---- python manage.py migrate
+16. To populate the tables using admin account, register the model in admin.py file ---
+     admin.site.register(User)
+17. Authneticate a user --- user= auth.authenticate(username=username,password=passwd)
+18. Login for a user --- auth.login(request,user)

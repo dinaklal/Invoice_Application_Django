@@ -1,8 +1,7 @@
 {% extends 'base.html'%}
-
+{% load static %}
 {% block Content %}
 
-{% load static %}
 
 <script>
 function w() {
@@ -45,5 +44,6 @@ swal({   title: "{{ name }}",   text: "PASSWORD തെറ്റാണ്.!",   t
     <body onLoad="w()">';
 
     {% endfor %}
+
 
     {% endblock %}
