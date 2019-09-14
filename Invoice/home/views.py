@@ -4,8 +4,8 @@ from login.models import Sites
 from django.contrib import messages
 # Create your views here.
 def home(request):
-    
-    return render(request,'home.html')
+    sites= Sites.objects.all()
+    return render(request,'home.html',{'sites':sites})
 def logout(request):
     auth.logout(request)
     return redirect('/')
