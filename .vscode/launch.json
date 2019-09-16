@@ -15,10 +15,11 @@
             "program": "${workspaceFolder}/Invoice/manage.py",
             "args": [
                 "runserver",
-                "--noreload"
+                "0.0.0.0:8080",
+                "--noreload"                
             ],
             "django": true,
-            "pythonPath": "${env:djgo}",
+            "pythonPath": "/home/lals/Desktop/djgo/bin/python",
         }
     ]
 }
