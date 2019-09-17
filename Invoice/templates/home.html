@@ -128,16 +128,25 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
 
 <script src="{% static 'js/in_script.js' %}"></script> 
  <link href="{% static 'css/1.css' %}" rel="stylesheet">
+
 <div class="col-md-12 container" id="invoice" style="background-color:white">
 <br>
-<table class="table table-bordered">
+<table class="table table-bordered"  id ="inv_table">
 <thead >
 <th >
 Site
 </th>
-
+<th>
+Per Load
+</th>
+<th>
+No Of Loads
+</th>
 <th>
 Unit Price
+</th>
+<th>
+Total Price
 </th>
 </thead>
 
@@ -145,7 +154,8 @@ Unit Price
 </tbody>
 </table>
   
-
+<button onclick ="$myFunction(this);" text ="Add Row" id="0" class="btn btn-success"> Add row
+</button>
 <br>
 </div>
   <br>
