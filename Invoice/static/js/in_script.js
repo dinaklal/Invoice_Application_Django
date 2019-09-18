@@ -38,7 +38,7 @@ $(document).ready(function()
          
 
          var totid="totid"+id
-         var tot = $("<td/>").append("<input type='text' placeholder='Total price'  class='form-control' id="+totid+" readonly>");
+         var tot = $("<td/>").append("<input type='text'  name='ss'  placeholder='Total price'  class='form-control' id="+totid+" readonly>");
          
 
          var rm_button = $("<td/>").append("<button   class='btn btn-danger remove_b' >Remove</button>");

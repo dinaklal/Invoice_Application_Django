@@ -33,6 +33,6 @@ def view_site(request):
 def process(request):
     post_data = dict(request.POST.lists())
     post_data.pop('csrfmiddlewaretoken',None)
-    print(post_data)
-    print(request.POST['num1'])
+    print(request.POST)
+    
     return render(request,'invoice_added.html',{'data':post_data})

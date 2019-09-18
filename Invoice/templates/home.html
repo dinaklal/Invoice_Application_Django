@@ -131,6 +131,8 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
 
 <div class="col-md-12 container" id="invoice" style="background-color:white">
 <br>
+<form action="process" method="POST">
+ {% csrf_token %}
 <table class="table table-bordered"  id ="inv_table">
 <thead >
 <th >
@@ -156,6 +158,11 @@ Total Price
   
 <button onclick ="$myFunction(this);" text ="Add Row" id="0" class="btn btn-success"> Add row
 </button>
+
+<button type="submit" text ="Next" id="0" class="btn btn-info pull-right"> Next
+</button>
+</form>
+<br>
 <br>
 </div>
   <br>
