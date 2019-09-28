@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Invoice(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     customer = models.CharField(max_length=100)
     address = models.CharField(max_length=500,default=0)
     contact = models.CharField(max_length=100)
