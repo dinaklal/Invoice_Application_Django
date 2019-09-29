@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout',views.logout,name='logout'),
     path('add_site',views.add_site,name='add_site'),
     path('view_site',views.view_site,name='view_site'),
-    path('process',views.process,name='aprocess'),
+    path('process',views.process,name='process'),
+    path('GeneratePdf',views.GeneratePdf,name='GeneratePdf'),
     
 ]

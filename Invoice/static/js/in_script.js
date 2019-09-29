@@ -106,8 +106,8 @@ $(document).ready(function() {
       up = $('input[id=' + unit_price_id + ']').val();
       sel1_id = i.replace('lod', 'sel1');
       sel1 = $('select[id=' + sel1_id + ']').children("option:selected").val();
-
-
+      var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+      $('input[id=date]').val(utc);
       console.log(sel1)
       $('input[id=' + tot_id + ']').val(up * $(this).val() * sel1)
       $('input[id=' + unt_id + ']').val($(this).val() * sel1)

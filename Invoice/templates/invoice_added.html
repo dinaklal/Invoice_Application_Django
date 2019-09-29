@@ -145,7 +145,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     			<div class="col-xs-6 text-right">
     				<address>
     					<strong>Invoice Date:</strong><br>
-    					March 7, 2014<br><br>
+    					{{ invoice.date }}<br><br>
     				</address>
     			</div>
     		</div>
@@ -191,7 +191,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     								<td class="thick-line"></td>
                     	<td class="thick-line"></td>
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-    								<td class="thick-line text-right">{{invoice.total}}</td>
+    								<td class="thick-line text-right">{{invoice.to }}</td>
     							</tr>
                   <tr>
     								<td class="no-line"></td>
@@ -213,7 +213,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     								<td class="no-line"></td>
                     <td class="no-line"></td>
     								<td class="no-line text-center"><strong>Total</strong></td>
-    								<td class="no-line text-right">{{ invoice.to }}</td>
+    								<td class="no-line text-right">{{ invoice.total }}</td>
     							</tr>
     						</tbody>
     					</table>
@@ -222,6 +222,29 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     		</div>
     	</div>
     </div>
+
+
+
+</div>
+  <br>
+  <br>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+           
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+                <a href="edit_invoice" > <button type="button" class="btn btn-lg btn-danger">Edit</button></a>
+            
+            </div>
+  		<div class="col-xs-6 col-sm-3 placeholder">
+             <a href="GeneratePdf?inv_id={{invoice.id}}"  target="_blank"> <button type="button" class="btn btn-lg btn-success">Print</button></a>
+             
+            </div>
+
+				<div class="col-xs-6 col-sm-3 placeholder">
+             <a href="#" > <button type="button" class="btn btn-lg btn-info">Remove Units</button></a>
+             
+            </div>
 
 
 </div>

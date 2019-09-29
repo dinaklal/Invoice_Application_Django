@@ -3,6 +3,10 @@ from django.contrib.auth.models import User,auth
 from login.models import Sites
 from home.models import Invoice,Sales
 from django.contrib import messages
+from datetime import datetime
+from home.utils import render_to_pdf #created in step 4
+from django.views.generic import View
+from django.http import HttpResponse
 # Create your views here.
 
 
@@ -40,13 +44,15 @@ def process(request):
     customer = post_data['customer'][0]
     contact = post_data['contact'][0]
     address = post_data['address'][0]
+    date=post_data['date'][0]
+    date = datetime.strptime(date, "%Y/%m/%d")
     #print(total)    
-    ob = Invoice(customer=customer,address=address,contact=contact,discount=discount,total_price=total,total_units=total_units)
+    ob = Invoice(customer=customer,address=address,contact=contact,discount=discount,total_price=total,total_units=total_units,date=date)
     ob.save()
     inv_id = Invoice.objects.latest('id').id
     if discount == '':
         discount = "0"
-    invoice  = {'name':customer,'address':address,'id':inv_id,'discount':float(discount),'contact':contact,'total':total,'tot_units':total_units,'to':float(total)-float(discount)}   
+    invoice  = {'date':date,'name':customer,'address':address,'id':inv_id,'discount':float(discount),'contact':contact,'total':total,'tot_units':total_units,'to':float(total)+float(discount)}   
     sale = []
     sn={}
     i=1
@@ -80,3 +86,30 @@ def process(request):
     
     print(sn)
     return render(request,'invoice_added.html',{'invoice':invoice,'sales':sale})
+
+def GeneratePdf(request):
+        get_data = dict(request.GET.lists())
+        id=get_data['inv_id'][0]
+        invoice = Invoice.objects.get(id=id)
+        sales= list(Sales.objects.filter(inv_id=id))
+        sal = []
+        sn={}
+        i=1
+        for sale in sales:
+            s= Sites.objects.get(id=sale.site_id)
+            sn['name']=s.name
+            sn['uprice']=s.Unit_price
+            sn['uload']=sale.units_load
+            sn['loads']=sale.no_loads
+            sn['units']=sale.tot_units
+            sn['sino']=i
+            i=i+1
+            sn['price']=sale.tot_price
+            
+            sal.append(sn)
+            sn={}
+        if invoice.discount == '':
+            invoice.discount = "0"
+        to=float(invoice.total_price)+float(invoice.discount)
+        pdf = render_to_pdf('invoice.html',{ 'invoice':invoice,'sales':sal,'to':to})
+        return HttpResponse(pdf, content_type='application/pdf')

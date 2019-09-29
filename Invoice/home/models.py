@@ -10,6 +10,7 @@ class Invoice(models.Model):
     discount = models.CharField(max_length=300)
     total_price= models.CharField(max_length=300)
     total_units= models.CharField(max_length=300)
+    date= models.DateField()
 
 class Sales(models.Model):
     inv_id= models.IntegerField()
