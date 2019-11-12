@@ -10,5 +10,7 @@ urlpatterns = [
     path('view_site',views.view_site,name='view_site'),
     path('process',views.process,name='process'),
     path('GeneratePdf',views.GeneratePdf,name='GeneratePdf'),
+    path('get_invoice',views.get_invoice,name='get_invoice'),
+    path('edit_inv',views.edit_inv,name='edit_inv')
     
 ]

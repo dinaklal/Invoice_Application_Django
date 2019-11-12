@@ -91,6 +91,7 @@ def GeneratePdf(request):
         get_data = dict(request.GET.lists())
         id=get_data['inv_id'][0]
         invoice = Invoice.objects.get(id=id)
+        print(invoice)
         sales= list(Sales.objects.filter(inv_id=id))
         sal = []
         sn={}
@@ -113,3 +114,36 @@ def GeneratePdf(request):
         to=float(invoice.total_price)+float(invoice.discount)
         pdf = render_to_pdf('invoice.html',{ 'invoice':invoice,'sales':sal,'to':to})
         return HttpResponse(pdf, content_type='application/pdf')
+def get_invoice(request):   
+    invoice = Invoice.objects.all().order_by('-date')[:5]
+    today=datetime.today()
+    today = today.strftime("%Y-%m-%d")
+    print(today)
+    return render(request,'view_inv.html',{'invoice':invoice,'date':today})
+def edit_inv(request):
+    post_data = dict(request.POST.lists())
+    post_data.pop('csrfmiddlewaretoken',None)
+    id = post_data['inv_id'][0]
+    invoice = Invoice.objects.get(id=id)
+    print(invoice)
+    sales= list(Sales.objects.filter(inv_id=id))
+    sal = []
+    sn={}
+    i=1
+    for sale in sales:
+            s= Sites.objects.get(id=sale.site_id)
+            sn['name']=s.name
+            sn['uprice']=s.Unit_price
+            sn['uload']=sale.units_load
+            sn['loads']=sale.no_loads
+            sn['units']=sale.tot_units
+            sn['sino']=i
+            i=i+1
+            sn['price']=sale.tot_price
+            
+            sal.append(sn)
+            sn={}
+    if invoice.discount == '':
+            invoice.discount = "0"
+    to=float(invoice.total_price)+float(invoice.discount)
+    return render(request,'edit_inv.html',{ 'invoice':invoice,'sales':sal,'to':to})
