@@ -25,7 +25,6 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
 };
 </script>
 
-
 {% if user.is_authenticated %}
 
 
@@ -76,10 +75,10 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
       <div class="row">
         <div  class="col-sm-3 col-md-2 sidebar" >
           <ul class="nav nav-sidebar">
-            <li ><a href='/'>Invoice Home</a></li>
+            <li class="active"><a href='/'>Invoice Home</a></li>
              <li><a href="add_site">Add Site</a></li>
             <li ><a href="view_site">Vew Site</a></li>
-                 <li class="active"><a href="get_invoice" >View/Edit Invoice</a></li>
+                 <li ><a href="get_invoice">Get Invoice</a></li>
             <li><a href="report">Report</a></li>
            
             
@@ -110,23 +109,21 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
 </style>
 
 
- <form  role="form" action="save_inv" method="post">
-  {% csrf_token %}
+
     <div class="row">
         <div class="col-xs-12">
     		<div class="invoice-title">
     			<h2>Invoice</h2><h3 class="pull-right">Invoice #{{invoice.id}}</h3>
-				 <input type="hidden" name="inv_id" value="{{invoice.id}}">
     		</div>
     		<hr>
     		<div class="row">
     			<div class="col-xs-6">
     				<address>
     				<strong>Billed To:</strong><br>
-    					<input type="text" value="{{invoice.name}}" name="name"><br>
-    					<input type="textarea" value="{{invoice.addess}}" name="address"><br>
+    					{{invoice.name}}<br>
+    					{{invoice.addess}}<br>
     				
-    					<input type="text" value="{{invoice.contact}}" name ="contact">
+    					{{invoice.contact}}
     				</address>
     			</div>
     			<div class="col-xs-6 text-right">
@@ -148,7 +145,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     			<div class="col-xs-6 text-right">
     				<address>
     					<strong>Invoice Date:</strong><br>
-    				<input type="text"	value="{{ invoice.date }}" name="date"><br><br>
+    					{{ invoice.date }}<br><br>
     				</address>
     			</div>
     		</div>
@@ -175,19 +172,18 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     						</thead>
     						<tbody>
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
-              
+               
                   {% for sale in sales %}
                   
     							<tr>
                     <td class="text-center">{{ sale.sino }}</td>
-    								<td class="text-center"><input type="text" value="{{sale.name}}/{{sale.uprice}}" name="a{{ forloop.counter }}" ></td>
+    								<td class="text-center">{{sale.name}}/{{sale.uprice}}</td>
     								
-    								<td class="text-right"><input type="text" value="{{sale.uload}} * {{sale.loads}}" name ="b{{ forloop.counter }}"></td>
-    								<td class="text-right"><input type="text" value ="{{ sale.units }}" name ="c{{ forloop.counter }}"></td>
-                    	<td class="text-right"><input type ="text" value="{{ sale.price }}" name ="d{{ forloop.counter }}"></td>
+    								<td class="text-right">{{sale.uload}} * {{sale.loads}}</td>
+    								<td class="text-right">{{ sale.units }}</td>
+                    	<td class="text-right">{{ sale.price }}</td>
                     
     							</tr>
-							
                  
                   {% endfor %}
                   <tr>
@@ -237,11 +233,11 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
            
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
-                <a href="" > <button type="button" class="btn btn-lg btn-danger">Print Without save</button></a>
+                <a href="edit_invoice" > <button type="button" class="btn btn-lg btn-danger">Edit</button></a>
             
             </div>
   		<div class="col-xs-6 col-sm-3 placeholder">
-             <a href="save_inv" > <button type="submit" class="btn btn-lg btn-success" type="submit">Save & Print</button></a>
+             <a href="GeneratePdf?inv_id={{invoice.id}}"  target="_blank"> <button type="button" class="btn btn-lg btn-success">Print</button></a>
              
             </div>
 

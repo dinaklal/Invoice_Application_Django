@@ -125,7 +125,7 @@ def edit_inv(request):
     post_data.pop('csrfmiddlewaretoken',None)
     id = post_data['inv_id'][0]
     invoice = Invoice.objects.get(id=id)
-    print(invoice)
+    #print(invoice)
     sales= list(Sales.objects.filter(inv_id=id))
     sal = []
     sn={}
@@ -147,3 +147,16 @@ def edit_inv(request):
             invoice.discount = "0"
     to=float(invoice.total_price)+float(invoice.discount)
     return render(request,'edit_inv.html',{ 'invoice':invoice,'sales':sal,'to':to})
+
+def save_inv(request):
+    post_data = dict(request.POST.lists())
+    post_data.pop('csrfmiddlewaretoken',None)
+    inv_id=post_data['inv_id'][0]
+    customer = post_data['name'][0]
+    ob=Invoice.objects.get(id=inv_id)
+    ob.customer = customer
+    ob.address = post_data['address'][0]
+    ob.contact = post_data['contact'][0]
+    ob.save()
+    print(inv_id)
+    return render(request,'save_inv.html',{ 'inv_id':1})
