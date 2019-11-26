@@ -140,12 +140,15 @@ def edit_inv(request):
             sn['sino']=i
             i=i+1
             sn['price']=sale.tot_price
+            sn['id']=sale.id
             
             sal.append(sn)
             sn={}
     if invoice.discount == '':
             invoice.discount = "0"
     to=float(invoice.total_price)+float(invoice.discount)
+    print(invoice)
+    invoice.date = invoice.date.strftime("%Y-%m-%d")
     return render(request,'edit_inv.html',{ 'invoice':invoice,'sales':sal,'to':to})
 
 def save_inv(request):
@@ -157,6 +160,61 @@ def save_inv(request):
     ob.customer = customer
     ob.address = post_data['address'][0]
     ob.contact = post_data['contact'][0]
+    ob.total_price = post_data['total'][0]
+    ob.discount = post_data['discount'][0]
+    ob.date = post_data['date'][0]
+    ob.total_units=post_data['tot_units'][0]
+
+    invoice  = {'date':ob.date,'name':ob.customer,'address':ob.address,'id':inv_id,'discount':float(ob.discount),'contact':ob.contact,'total':ob.total_price,'tot_units':ob.total_units,'to':float(ob.total_price)+float(ob.discount)}   
+    
     ob.save()
-    print(inv_id)
-    return render(request,'save_inv.html',{ 'inv_id':1})
+    #Sales.objects.filter(inv_id=inv_id).delete()
+    sale1=[]
+    sn  = {}
+    i=1
+    for key in post_data:
+        
+        if key.startswith('salea'):
+            site_name = post_data[key][0].split('/')
+            site_id = Sites.objects.filter(name=site_name[0])
+            sn['name']=site_id[0].name
+            sn['uprice']=site_id[0].Unit_price
+            #print(site_id[0].name)
+            if not site_id :
+                break;#print("site Name didnt macthed")
+            else:
+                print(site_id[0].name)
+        if key.startswith('saleb'):
+            loads = post_data[key][0].split('*')           
+            #print(loads[1])
+            #print(loads[0])
+        if key.startswith('sale_id'):
+            sale_id = post_data[key][0]
+
+            sale = Sales.objects.get(id=sale_id)
+            sale.inv_id = inv_id
+            sale.site_id = site_id[0].id
+            sale.units_load = loads[0]
+            sn['uload']=sale.units_load
+            sale.no_loads = loads[1]
+
+            sn['loads']=sale.no_loads
+            sale.tot_units = int(loads[0]) * int(loads[1])
+
+            sn['units']=sale.tot_units
+            sn['sino']=i
+            i = i +1
+           
+            sale.tot_price = int(loads[0]) * int(loads[1]) * int(site_id[0].Unit_price)
+            sn['price']=sale.tot_price
+            sale1.append(sn)
+            sale.save()
+            sn={}
+                
+            
+
+    print(post_data)
+    print(invoice)
+  
+    print(sale1)
+    return render(request,'save_inv.html',{ 'inv_id':int(inv_id),'invoice':invoice,'sales':sale1})

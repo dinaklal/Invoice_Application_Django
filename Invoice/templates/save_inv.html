@@ -16,13 +16,14 @@
 
 
 function w() {
-swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warning",  
- showCancelButton: false,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Please Login to continue",   closeOnConfirm: false },
- function(){
-    window.location.href = '/';});
+swal({   title: "{{ name }}",   text: "Successfully Updated",   type: "success",  
+ showCancelButton: false,   confirmButtonColor: "green",   confirmButtonText: "OK",   closeOnConfirm: false },
+ );
+    //window.location.href = 'GeneratePdf?inv_id={{inv_id}}';});
 
  
 };
+w();
 </script>
 
 {% if user.is_authenticated %}

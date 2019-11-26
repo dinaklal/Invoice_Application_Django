@@ -23,6 +23,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
 
  
 };
+
 </script>
 
 
@@ -123,9 +124,11 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     			<div class="col-xs-6">
     				<address>
     				<strong>Billed To:</strong><br>
-    					<input type="text" value="{{invoice.name}}" name="name"><br>
+						Name:<br>
+    					<input type="text" value="{{invoice.customer}}" name="name"><br>
+						Address:<br>
     					<input type="textarea" value="{{invoice.addess}}" name="address"><br>
-    				
+						contact:<br>    				
     					<input type="text" value="{{invoice.contact}}" name ="contact">
     				</address>
     			</div>
@@ -148,7 +151,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     			<div class="col-xs-6 text-right">
     				<address>
     					<strong>Invoice Date:</strong><br>
-    				<input type="text"	value="{{ invoice.date }}" name="date"><br><br>
+    				<input type="date"	value="{{ invoice.date }}" name="date"><br><br>
     				</address>
     			</div>
     		</div>
@@ -180,12 +183,12 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
                   
     							<tr>
                     <td class="text-center">{{ sale.sino }}</td>
-    								<td class="text-center"><input type="text" value="{{sale.name}}/{{sale.uprice}}" name="a{{ forloop.counter }}" ></td>
+    								<td class="text-center"><input type="text" value="{{sale.name}}/{{sale.uprice}}" name="salea{{ forloop.counter }}" ></td>
     								
-    								<td class="text-right"><input type="text" value="{{sale.uload}} * {{sale.loads}}" name ="b{{ forloop.counter }}"></td>
-    								<td class="text-right"><input type="text" value ="{{ sale.units }}" name ="c{{ forloop.counter }}"></td>
-                    	<td class="text-right"><input type ="text" value="{{ sale.price }}" name ="d{{ forloop.counter }}"></td>
-                    
+    								<td class="text-right"><input type="text" value="{{sale.uload}} * {{sale.loads}}" name ="saleb{{ forloop.counter }}"></td>
+    								<td class="text-right"><input type="text" value ="{{ sale.units }}" name ="salec{{ forloop.counter }}"></td>
+                    	<td class="text-right"><input type ="text" value="{{ sale.price }}" name ="saled{{ forloop.counter }}"></td>
+                    <input type="hidden" name="sale_id{{ forloop.counter }}" value="{{sale.id}}">
     							</tr>
 							
                  
@@ -195,21 +198,21 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     								<td class="thick-line"></td>
                     	<td class="thick-line"></td>
     								<td class="thick-line text-center"><strong>Subtotal</strong></td>
-    								<td class="thick-line text-right">{{invoice.to }}</td>
+    								<td class="thick-line text-right"><input type ="text" value="{{ to }}" name ="sub_tot"></td>
     							</tr>
                   <tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
                     <td class="no-line"></td>
     								<td class="no-line text-center"><strong>Total Units</strong></td>
-    								<td class="no-line text-right">{{ invoice.tot_units }}</td>
+    								<td class="no-line text-right"><input type ="text" value="{{ invoice.total_units }}" name="tot_units"></td>
     							</tr>
     							<tr>
     								<td class="no-line"></td>
     								<td class="no-line"></td>
                     <td class="no-line"></td>
     								<td class="no-line text-center"><strong>Discount</strong></td>
-    								<td class="no-line text-right">{{ invoice.discount }}</td>
+    								<td class="no-line text-right"><input type ="text" value="{{ invoice.discount }}" name ="discount"></td>
     							</tr>
                   
     							<tr>
@@ -217,7 +220,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     								<td class="no-line"></td>
                     <td class="no-line"></td>
     								<td class="no-line text-center"><strong>Total</strong></td>
-    								<td class="no-line text-right">{{ invoice.total }}</td>
+    								<td class="no-line text-right"><input type ="text" value="{{ invoice.total_price }}" name ="total"></td>
     							</tr>
     						</tbody>
     					</table>
