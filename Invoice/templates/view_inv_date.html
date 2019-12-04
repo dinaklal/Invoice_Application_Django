@@ -92,15 +92,16 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
                   <th>Customer</th>
                   <th>Total Amont</th>
                   <th>Contact</th>
-                  <th class="col-md-5">Date</th>
+                  <th class="col-md-4">Date</th>
+                  <th ></th>
 
                   {% for inv in invoice%}
                   <tr>
                   <td>{{ inv.id }}</td><td>{{ inv.customer }}</td><td>{{ inv.total_price }}</td>
                   <td>{{ inv.contact }}</td><td>{{ inv.date }}</td>
-
-
-                   <td>
+                  
+                  
+                  <td>
 
                   <form action="edit_inv" method="post">
                   {% csrf_token %}
@@ -142,7 +143,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
          <div class="col-md-3 col-md-offset-2" >
             <div class="form-group">
             <span class="label label-primary">From Date</span>
-            <input type="date" name='from_date' class="form-control" >
+            <input type="date" name='from_date' class="form-control" value="{{ from_date }}" >
             </div>
          </div>
          <div class="col-md-3 col-md-offset-1" >

@@ -120,6 +120,13 @@ def get_invoice(request):
     today = today.strftime("%Y-%m-%d")
     print(today)
     return render(request,'view_inv.html',{'invoice':invoice,'date':today})
+def edit_inv_date(request):   
+    post_data = dict(request.POST.lists())
+    post_data.pop('csrfmiddlewaretoken',None)
+    from_date = post_data['from_date'][0]
+    to_date = post_data['to_date'][0]
+    invoice = Invoice.objects.filter(date__range=(from_date, to_date))
+    return render(request,'view_inv_date.html',{'invoice':invoice,'date':to_date,'from_date':from_date})
 def edit_inv(request):
     post_data = dict(request.POST.lists())
     post_data.pop('csrfmiddlewaretoken',None)

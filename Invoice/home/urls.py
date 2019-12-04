@@ -12,5 +12,6 @@ urlpatterns = [
     path('GeneratePdf',views.GeneratePdf,name='GeneratePdf'),
     path('get_invoice',views.get_invoice,name='get_invoice'),
     path('edit_inv',views.edit_inv,name='edit_inv'),
-    path('save_inv',views.save_inv,name='save_inv')
+    path('save_inv',views.save_inv,name='save_inv'),
+    path('edit_inv_date',views.edit_inv_date,name='edit_inv_date')
 ]
