@@ -111,7 +111,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
 </style>
 
 
- <form  role="form" action="save_inv" method="post">
+ <form  role="form" action="save_inv" target="_blank" method="post">
   {% csrf_token %}
     <div class="row">
         <div class="col-xs-12">
@@ -240,11 +240,11 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
            
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
-                <a href="" > <button type="button" class="btn btn-lg btn-danger">Print Without save</button></a>
+                <input type="submit" value="Print Without save" class="btn btn-lg btn-danger"></input></a>
             
             </div>
   		<div class="col-xs-6 col-sm-3 placeholder">
-             <a href="save_inv" > <button type="submit" class="btn btn-lg btn-success" type="submit">Save & Print</button></a>
+             <a href="save_inv" > <input type="submit" name ="_print"class="btn btn-lg btn-success" value="Save & Print"></input</a>
              
             </div>
 

@@ -70,6 +70,19 @@
                   {% for site in sites%}
                   <tr>
                   <td>{{site.name}}</td><td>{{ site.Unit_price}}</td><td>{{ site.Description}}</td>
+                  
+                   <td>
+
+                  
+                  
+              
+                  <a href= 'admin/login/sites/3/change' > <button class="btn btn-warning " action="submit" >
+                  Edit </button></a>
+                  
+                  </form>
+
+                  </td>
+                  
                   </tr>
                   {% endfor %}
             </table>

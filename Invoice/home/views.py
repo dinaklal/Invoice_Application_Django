@@ -91,7 +91,6 @@ def GeneratePdf(request):
         get_data = dict(request.GET.lists())
         id=get_data['inv_id'][0]
         invoice = Invoice.objects.get(id=id)
-        print(invoice)
         sales= list(Sales.objects.filter(inv_id=id))
         sal = []
         sn={}
@@ -113,7 +112,7 @@ def GeneratePdf(request):
             invoice.discount = "0"
         to=float(invoice.total_price)+float(invoice.discount)
         pdf = render_to_pdf('invoice.html',{ 'invoice':invoice,'sales':sal,'to':to})
-        return HttpResponse(pdf, content_type='application/pdf')
+        return HttpResponse(pdf, content_type='application/pdf')           
 def get_invoice(request):   
     invoice = Invoice.objects.all().order_by('-date')[:5]
     today=datetime.today()
@@ -161,67 +160,103 @@ def edit_inv(request):
 def save_inv(request):
     post_data = dict(request.POST.lists())
     post_data.pop('csrfmiddlewaretoken',None)
-    inv_id=post_data['inv_id'][0]
-    customer = post_data['name'][0]
-    ob=Invoice.objects.get(id=inv_id)
-    ob.customer = customer
-    ob.address = post_data['address'][0]
-    ob.contact = post_data['contact'][0]
-    ob.total_price = post_data['total'][0]
-    ob.discount = post_data['discount'][0]
-    ob.date = post_data['date'][0]
-    ob.total_units=post_data['tot_units'][0]
-
-    invoice  = {'date':ob.date,'name':ob.customer,'address':ob.address,'id':inv_id,'discount':float(ob.discount),'contact':ob.contact,'total':ob.total_price,'tot_units':ob.total_units,'to':float(ob.total_price)+float(ob.discount)}   
-    
-    ob.save()
-    #Sales.objects.filter(inv_id=inv_id).delete()
-    sale1=[]
-    sn  = {}
-    i=1
-    for key in post_data:
-        
-        if key.startswith('salea'):
-            site_name = post_data[key][0].split('/')
-            site_id = Sites.objects.filter(name=site_name[0])
-            sn['name']=site_id[0].name
-            sn['uprice']=site_id[0].Unit_price
-            #print(site_id[0].name)
-            if not site_id :
-                break;#print("site Name didnt macthed")
-            else:
-                print(site_id[0].name)
-        if key.startswith('saleb'):
-            loads = post_data[key][0].split('*')           
-            #print(loads[1])
-            #print(loads[0])
-        if key.startswith('sale_id'):
-            sale_id = post_data[key][0]
-
-            sale = Sales.objects.get(id=sale_id)
-            sale.inv_id = inv_id
-            sale.site_id = site_id[0].id
-            sale.units_load = loads[0]
-            sn['uload']=sale.units_load
-            sale.no_loads = loads[1]
-
-            sn['loads']=sale.no_loads
-            sale.tot_units = int(loads[0]) * int(loads[1])
-
-            sn['units']=sale.tot_units
-            sn['sino']=i
-            i = i +1
-           
-            sale.tot_price = int(loads[0]) * int(loads[1]) * int(site_id[0].Unit_price)
-            sn['price']=sale.tot_price
-            sale1.append(sn)
-            sale.save()
-            sn={}
-                
-            
 
     print(post_data)
-    print(invoice)
-  
-    print(sale1)
-    return render(request,'save_inv.html',{ 'inv_id':int(inv_id),'invoice':invoice,'sales':sale1})
+    inv_id=post_data['inv_id'][0]
+    customer = post_data['name'][0]
+    address = post_data['address'][0]
+    contact = post_data['contact'][0]
+    total_price = post_data['total'][0]
+    discount = post_data['discount'][0]
+    date = post_data['date'][0]
+    total_units=post_data['tot_units'][0]
+
+    if '_print' in request.POST:
+        ob=Invoice.objects.get(id=inv_id)
+        ob.customer = customer
+        ob.address = post_data['address'][0]
+        ob.contact = post_data['contact'][0]
+        ob.total_price = post_data['total'][0]
+        ob.discount = post_data['discount'][0]
+        ob.date = post_data['date'][0]
+        ob.total_units=post_data['tot_units'][0]
+
+        invoice  = {'date':ob.date,'name':ob.customer,'address':ob.address,'id':inv_id,'discount':float(ob.discount),'contact':ob.contact,'total':ob.total_price,'tot_units':ob.total_units,'to':float(ob.total_price)+float(ob.discount)}   
+        
+        ob.save()
+        #Sales.objects.filter(inv_id=inv_id).delete()
+        sale1=[]
+        sn  = {}
+        i=1
+        for key in post_data:
+            
+            if key.startswith('salea'):
+                site_name = post_data[key][0].split('/')
+                site_id = Sites.objects.filter(name=site_name[0])
+                sn['name']=site_id[0].name
+                sn['uprice']=site_id[0].Unit_price
+                #print(site_id[0].name)
+                if not site_id :
+                    break;#print("site Name didnt macthed")
+                else:
+                    print(site_id[0].name)
+            if key.startswith('saleb'):
+                loads = post_data[key][0].split('*')           
+                #print(loads[1])
+                #print(loads[0])
+            if key.startswith('sale_id'):
+                sale_id = post_data[key][0]
+
+                sale = Sales.objects.get(id=sale_id)
+                sale.inv_id = inv_id
+                sale.site_id = site_id[0].id
+                sale.units_load = loads[0]
+                sn['uload']=sale.units_load
+                sale.no_loads = loads[1]
+
+                sn['loads']=sale.no_loads
+                sale.tot_units = int(loads[0]) * int(loads[1])
+
+                sn['units']=sale.tot_units
+                sn['sino']=i
+                i = i +1
+            
+                sale.tot_price = int(loads[0]) * int(loads[1]) * int(site_id[0].Unit_price)
+                sn['price']=sale.tot_price
+                sale1.append(sn)
+                sale.save()
+                sn={}
+        return render(request,'save_inv.html',{ 'inv_id':int(inv_id),'invoice':invoice,'sales':sale1})
+    else :
+        #print(post_data)
+
+        invoice  = {'date':date,'name':customer,'address':address,'id':inv_id,'discount':float(discount),'contact':contact,'total_price':total_price,'total_units':total_units,'to':float(total_price)+float(discount)}   
+        
+        print(invoice)    
+        sale1=[]
+        sn  = {}
+        i=1
+        for key in post_data:
+            
+            if key.startswith('salea'):
+                site_name = post_data[key][0].split('/')
+                sn['name']=site_name[0]
+                sn['uprice']=site_name[1]
+                #print(site_id[0].name)
+                
+            if key.startswith('saleb'):
+                loads = post_data[key][0].split('*')           
+                sn['uload']=loads[0]
+                sn['loads']=loads[1]
+            if key.startswith('salec'):
+                sn['units']=post_data[key][0]
+            if key.startswith('saled'):
+                sn['price']=post_data[key][0]
+            if key.startswith('sale_id'):
+                sale_id = post_data[key][0]
+                sn['sino']=i
+                i = i +1            
+                sale1.append(sn)               
+                sn={}       
+        pdf = render_to_pdf('invoice.html',{ 'invoice':invoice,'sales':sale1,'to':invoice['to']})
+        return HttpResponse(pdf, content_type='application/pdf')
