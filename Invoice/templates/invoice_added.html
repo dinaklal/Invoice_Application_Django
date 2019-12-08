@@ -232,19 +232,20 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
            
           <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <a href="edit_invoice" > <button type="button" class="btn btn-lg btn-danger">Edit</button></a>
-            
+            <div class="col-xs-6 col-sm-4 placeholder">
+               <form action="edit_inv" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="inv_id" value="{{ invoice.id }}" />
+              
+                  <button class="btn btn-lg btn-danger " action="submit" >
+                  Edit </button>
             </div>
-  		<div class="col-xs-6 col-sm-3 placeholder">
+  		<div class="col-xs-6 col-sm-4 placeholder">
              <a href="GeneratePdf?inv_id={{invoice.id}}"  target="_blank"> <button type="button" class="btn btn-lg btn-success">Print</button></a>
              
             </div>
 
-				<div class="col-xs-6 col-sm-3 placeholder">
-             <a href="#" > <button type="button" class="btn btn-lg btn-info">Remove Units</button></a>
-             
-            </div>
+				
 
 
 </div>

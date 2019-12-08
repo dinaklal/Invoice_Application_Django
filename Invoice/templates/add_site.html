@@ -35,7 +35,7 @@ swal({   title: "Mughal Invoice",   text: "Site Added",   type: "success",
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a  href="home.php" style="color:white;">Dashboard</a></li>
+            <li><a  href="/" style="color:white;">Hi,{{ user.first_name }} {{ user.last_name }}</a></li>
            
             <li><a href="logout" style="color:white;">Logout</a></li>
             
@@ -59,7 +59,7 @@ swal({   title: "Mughal Invoice",   text: "Site Added",   type: "success",
               <li ><a href="home">Invoice Home</a></li>
              <li class= "active"><a href="add_site">Add Site</a></li>
                         <li ><a href="view_site">Vew Site</a></li>
-                 <li ><a href="get_invoice">Get Invoice</a></li>
+                 <li ><a href="get_invoice">View/Edit Invoice</a></li>
             <li><a href="report">Report</a></li>
             
 		
@@ -67,7 +67,7 @@ swal({   title: "Mughal Invoice",   text: "Site Added",   type: "success",
        
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
-            <center>  <b> <h1  style="color:green;font-weight: 10000; text-shadow: 2px 2px green;">Add New Site </h1></b></center>
+            <center>  <b> <h3 class="p-3 mb-2 bg-primary bg-dark ">Add New Site </b></center>
           
           
           <form class="form-signin" role="form" action="add_site" method="post">

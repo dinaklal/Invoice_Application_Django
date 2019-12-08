@@ -76,10 +76,10 @@ w();
       <div class="row">
         <div  class="col-sm-3 col-md-2 sidebar" >
           <ul class="nav nav-sidebar">
-            <li class="active"><a href='/'>Invoice Home</a></li>
+            <li ><a href='/'>Invoice Home</a></li>
              <li><a href="add_site">Add Site</a></li>
             <li ><a href="view_site">Vew Site</a></li>
-                 <li ><a href="get_invoice">Get Invoice</a></li>
+                 <li class="active"><a href="get_invoice">View/Edit Invoice</a></li>
             <li><a href="report">Report</a></li>
            
             
@@ -233,20 +233,21 @@ w();
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
            
           <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-                <a href="edit_invoice" > <button type="button" class="btn btn-lg btn-danger">Edit</button></a>
-            
+           <div class="row placeholders">
+            <div class="col-xs-6 col-sm-4 placeholder">
+               <form action="edit_inv" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="inv_id" value="{{ invoice.id }}" />
+              
+                  <button class="btn btn-lg btn-danger " action="submit" >
+                  Edit </button>
             </div>
-  		<div class="col-xs-6 col-sm-3 placeholder">
+  		<div class="col-xs-6 col-sm-4 placeholder">
              <a href="GeneratePdf?inv_id={{invoice.id}}"  > <button type="button" class="btn btn-lg btn-success">Print</button></a>
              
             </div>
 
-				<div class="col-xs-6 col-sm-3 placeholder">
-             <a href="#" > <button type="button" class="btn btn-lg btn-info">Remove Units</button></a>
-             
-            </div>
-
+			
 
 </div>
   <br>
