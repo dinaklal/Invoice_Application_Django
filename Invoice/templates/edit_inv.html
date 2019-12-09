@@ -12,7 +12,11 @@
   
 <script>
 
+function x() {
 
+document.getElementById("ff")[0].setAttribute("target", "_blank");
+ 
+};
 
 
 function w() {
@@ -111,7 +115,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
 </style>
 
 
- <form  role="form" action="save_inv" target="_blank" method="post">
+ <form  role="form" action="save_inv"  method="post" >
   {% csrf_token %}
     <div class="row">
         <div class="col-xs-12">
@@ -240,7 +244,7 @@ swal({   title: "{{ name }}",   text: "You are not Logged In!!!",   type: "warni
            
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-4 placeholder">
-                <input type="submit" value="Print Without save" class="btn btn-lg btn-danger"></input></a>
+                <input type="submit" value="Print Without save" onsubmit="x()" class="btn btn-lg btn-danger"></input></a>
             
             </div>
   		<div class="col-xs-6 col-sm-4 placeholder">
